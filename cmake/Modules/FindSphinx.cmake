@@ -318,14 +318,22 @@ function(sphinx_add_docs _target)
       "\nbreathe_default_project = '${_breathe_default_project}'")
   endif()
 
-  add_custom_target(
-    ${_target}
-    COMMAND ${SPHINX_BUILD_EXECUTABLE}
-              -b ${_builder}
-              -d "${CMAKE_CURRENT_BINARY_DIR}/${_target}.cache/_doctrees"
-              -c "${CMAKE_CURRENT_BINARY_DIR}/${_target}.cache"
-              "${_sourcedir}"
-              "${_outputdir}"
-    DEPENDS ${_depends})
+  if(NOT DEFINED ENV{READTHEDOCS})
+    add_custom_target(
+      ${_target}
+      COMMAND ${SPHINX_BUILD_EXECUTABLE}
+                -b ${_builder}
+                -d "${CMAKE_CURRENT_BINARY_DIR}/${_target}.cache/_doctrees"
+                -c "${CMAKE_CURRENT_BINARY_DIR}/${_target}.cache"
+                "${_sourcedir}"
+                "${_outputdir}"
+      DEPENDS ${_depends})
+  else()
+    message(STATUS "Skipping sphinx-build for target ${_target}"
+                   " (running in READTHEDOCS environment)")
+    add_custom_target(
+      ${_target}
+      DEPENDS ${_depends})
+  endif()
 endfunction()
 
