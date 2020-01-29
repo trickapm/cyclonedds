@@ -29,9 +29,16 @@ if not os.path.isfile("../build/docs/conf.py"):
     invoke_cmake()
 
 sys.path.append("../build/docs/manual/docs.cache")
-import conf
+from conf import *
+
+#import importlib.util
+#spec = importlib.util.spec_from_file_location("conf", "../build/docs/manual/docs.cache/conf.py")
+#foo = importlib.util.module_from_spec(spec)
+#spec.loader.exec_module(foo)
 
 
-
+print("EXTENSIONS: ")
+print(extensions)
+print(breathe_projects)
 
 
