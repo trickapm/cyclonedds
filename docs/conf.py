@@ -11,7 +11,7 @@ from pprint import pprint
 def invoke_cmake():
     # Raises exception when a process returns a non-zero exit code
     print("Invoking cmake...")
-    cmd = "mkdir ../build; cd ../build; cmake -DBUILD_DOCS=ON .."
+    cmd = "mkdir ../build; cd ../build; cmake -DBUILD_DOCS=ON -DBUILD_IDLC=OFF .."
     cp = subprocess.run(cmd, shell=True, check=True, timeout=10)
 
     print("Building docs target...")
