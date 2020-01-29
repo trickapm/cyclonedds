@@ -1,2 +1,3 @@
 # Python requirements for readthedocs build environment
 cmake
+breathe
